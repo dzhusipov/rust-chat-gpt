@@ -1,4 +1,4 @@
-# Telegram Code Formatter Bot
+# Rust Telegram ChatGPT bot
 
 This project is a Telegram bot that interacts with OpenAI's GPT models to generate code snippets and format them correctly using HTML markup for Telegram. It supports various programming languages and allows code snippets to be displayed with correct formatting in chat messages.
 
