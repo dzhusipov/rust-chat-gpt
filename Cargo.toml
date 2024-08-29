@@ -1,0 +1,44 @@
+[package]
+name = "rnd-helper"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dotenv = "0.15.0"
+log = "0.4.22"
+log4rs = "1.3.0"
+regex = "1.10.6"
+serde = { version = "1.0.209", features = ["derive"] }
+serde_json = "1.0.127"
+teloxide = { version = "0.13.0", features = ["macros"] }
+tokio = { version = "1.39.3", features = ["full"] }
+
+
+[profile.release]
+strip = true        # Automatically strip symbols from the binary.
+opt-level = "z"     # Optimize for size.
+lto = true          # Use Link Time Optimization.
+codegen-units = 1   # Compile the whole crate at once.
+debug = false       # Strip debug symbols from the binary.
+
+
+[target.aarch64-apple-darwin.dependencies]
+reqwest = { version = "0.12.7", features = ["json"]}
+
+[target.x86_64-apple-darwin.dependencies]
+reqwest = { version = "0.12.7", features = ["json"]}
+
+[target.x86_64-pc-windows-gnu.dependencies]
+reqwest = { version = "0.12.7", features = ["json"]}
+
+[target.x86_64-unknown-linux-gnu.dependencies]
+reqwest = { version = "0.12.7", features = ["json", "rustls-tls"], default-features = false }
+
+[target.x86_64-unknown-linux-musl.dependencies]
+reqwest = { version = "0.12.7", features = ["json", "rustls-tls"], default-features = false }
+
+[target.aarch64-unknown-linux-musl.dependencies]
+reqwest = { version = "0.12.7", features = ["json", "rustls-tls"], default-features = false }
+
+[target.aarch64-unknown-linux-gnu.dependencies]
+reqwest = { version = "0.12.7", features = ["json", "rustls-tls"], default-features = false }
