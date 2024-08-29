@@ -66,14 +66,14 @@ docker:
 	docker rm rust-gpt || true
 	docker rmi rust-gpt-img || true
 	docker build -t rust-gpt-img -f Dockerfile.arm .
-	docker run -d -p 8989:8989 --name rust-gpt rust-gpt-img
+	docker run -d --name rust-gpt rust-gpt-img
 
 server:
 	docker stop rust-gpt || true
 	docker rm rust-gpt || true
 	docker rmi rust-gpt-img || true
 	docker build -t rust-gpt-img .
-	docker run -d -p 9292:8989 --name rust-gpt rust-gpt-img
+	docker run -d --name rust-gpt rust-gpt-img
 
 force-push:
 	read -p "Enter commit message: " message
