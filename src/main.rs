@@ -19,7 +19,7 @@ async fn main() {
     // Define the handler function
     teloxide::repl(bot, move |bot: Bot, message: Message| async move {
         // me, device, rnd
-        let allowed_ids = vec![151137540, -1001641510706, -1001570878241];
+        let allowed_ids = vec![151137540, -1001641510706, -1001570878241, -1001772550506];
         let chat_id = message.chat.id.0;
 
         if !allowed_ids.contains(&chat_id) {
@@ -34,12 +34,15 @@ async fn main() {
         if let Some(text) = message.text() {
             // Check if the message starts with "/gpt"
             if text.starts_with("/gpt") {
-                let openai_key = env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY not set");
-                
-                // Extract the command argument after "/gpt"
                 let query = text.trim_start_matches("/gpt").trim();
 
-                if !query.is_empty() {
+                if query.is_empty() {
+                    bot.send_message(message.chat.id, "Запрос свой введи заебал")
+                        .send()
+                        .await?;
+                } else {
+                    let openai_key = env::var("OPENAI_API_KEY").expect("OPENAI_API_KEY not set");
+                    
                     match get_chatgpt_response(&openai_key, query).await {
                         Ok(response) => {
                             let escaped_response = replace_code_markers(&response);
@@ -56,10 +59,6 @@ async fn main() {
                                 .await?;
                         }
                     }
-                } else {
-                    bot.send_message(message.chat.id, "Please provide a query after the /gpt command.")
-                        .send()
-                        .await?;
                 }
             }
         }
