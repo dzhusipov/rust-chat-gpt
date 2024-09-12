@@ -18,7 +18,8 @@ async fn main() {
 
     // Define the handler function
     teloxide::repl(bot, move |bot: Bot, message: Message| async move {
-        let allowed_ids = vec![151137540, -1001641510706];
+        // me, device, rnd
+        let allowed_ids = vec![151137540, -1001641510706, -1001570878241];
         let chat_id = message.chat.id.0;
 
         if !allowed_ids.contains(&chat_id) {
